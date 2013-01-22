@@ -1,25 +1,27 @@
+//Derived from the stack implementation at http://rosettacode.org/wiki/Queue#Go 2013/01/22
 package main
+
+import (
+    "fmt"
+)
+
+type Queue []interface{}
  
-import "fmt"
- 
-type stack []interface{}
- 
-func (k *stack) push(s interface{}) {
+func (k *Queue) Push(s interface{}) {
     *k = append(*k, s)
 }
  
-func (k *stack) pop() (s interface{}, ok bool) {
-    if k.empty() {
+func (k *Queue) Pop() (s interface{}, ok bool) {
+    if k.Empty() {
         return
     }
-    //last := len(*k) - 1
     s = (*k)[0]
     *k = (*k)[1:]
     return s, true
 }
  
-func (k *stack) peek() (s interface{}, ok bool) {
-    if k.empty() {
+func (k *Queue) peek() (s interface{}, ok bool) {
+    if k.Empty() {
         return
     }
     last := len(*k) - 1
@@ -27,17 +29,19 @@ func (k *stack) peek() (s interface{}, ok bool) {
     return s, true
 }
  
-func (k *stack) empty() bool {
+func (k *Queue) Empty() bool {
     return len(*k) == 0
 }
 
+
 func main() {
-    s := stack{}
-    s.push("hi")
-    s.push("there")
+    s := Queue{}
+    s.Push("hi")
+    s.Push("there")
+    s.Push("bruh")
     
-    for !s.empty() {
-        l, ok := s.pop()
+    for !s.Empty() {
+        l, ok := s.Pop()
         if ok {
             fmt.Println(l)
         }
