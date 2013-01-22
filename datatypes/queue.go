@@ -1,38 +1,37 @@
-//From http://rosettacode.org/wiki/Stack#Go 2013/01/22
-package primitives
+//Derived from the stack implementation at http://rosettacode.org/wiki/Queue#Go 2013/01/22
+package datatypes
 
-type Stack []interface{}
+type Queue []interface{}
  
-func (k *Stack) Push(s interface{}) {
+func (k *Queue) Push(s interface{}) {
     *k = append(*k, s)
 }
  
-func (k *Stack) Pop() (s interface{}, ok bool) {
+func (k *Queue) Pop() (s interface{}, ok bool) {
+    if k.Empty() {
+        return
+    }
+    s = (*k)[0]
+    *k = (*k)[1:]
+    return s, true
+}
+ 
+func (k *Queue) peek() (s interface{}, ok bool) {
     if k.Empty() {
         return
     }
     last := len(*k) - 1
     s = (*k)[last]
-    *k = (*k)[:last]
     return s, true
 }
  
-func (k *Stack) peek() (s interface{}, ok bool) {
-    if k.Empty() {
-        return
-    }
-    last := len(*k) - 1
-    s = (*k)[last]
-    return s, true
-}
- 
-func (k *Stack) Empty() bool {
+func (k *Queue) Empty() bool {
     return len(*k) == 0
 }
 
 /*
 func main() {
-    s := Stack{}
+    s := Queue{}
     s.Push("hi")
     s.Push("there")
     s.Push("bruh")
