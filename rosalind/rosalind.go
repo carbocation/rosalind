@@ -1,5 +1,9 @@
 package rosalind
 
+import (
+    "strings"
+)
+
 //#1 Given a string, counts the bases in that string
 //Does no checking to make sure that the string contains valid DNA letters
 func CountBases(Dna []byte) map[string]int {
@@ -34,4 +38,22 @@ func ReverseComplement(Dna []byte) []byte {
     }
     
     return revc
+}
+
+func ParseFasta(in string) map[string]string {
+    entries := map[string]string{}
+
+    var name string
+
+    for _, line := range strings.Split(in, "\n") {
+        if line[0:1] == ">" {
+            name = line[1:]
+            entries[name] = ""
+            continue
+        }
+
+        entries[name] += strings.Trim(line, "\n")
+    }
+
+    return entries
 }
