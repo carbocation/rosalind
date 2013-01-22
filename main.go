@@ -7,6 +7,7 @@ import (
 
 func main() {
 	ProblemsDna()
+    TranscribeDna()
 }
 
 func ProblemsDna() {
@@ -15,4 +16,12 @@ func ProblemsDna() {
     out := rosalind.CountBases(s)
 
     fmt.Println(out["A"], out["C"], out["G"], out["T"])
+}
+
+func TranscribeDna() {
+    in := []byte("GATGGAACTTGACTACGTAAATT")
+    out := rosalind.TranscribeDna(in)
+    
+    fmt.Println(string(in))
+    fmt.Println(string(out))
 }
