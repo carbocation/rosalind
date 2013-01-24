@@ -2,6 +2,7 @@ package rosalind
 
 import (
     "strings"
+    "fmt"
 )
 
 //#1 Given a string, counts the bases in that string
@@ -82,4 +83,26 @@ func FracGc(Dna string) float64{
     }
 
     return float64(gcBases)/float64(bases)
+}
+
+type ErrUnequalSequences int
+func (e ErrUnequalSequences) Error() string {
+    return fmt.Sprintf("Strings differ in length")
+}
+
+//Compute the Hamming Distance between two strings of equal length
+func HammingDistance(Ref string, Alt string) (int, error){
+    if len(Ref) != len(Alt){
+        return -1, ErrUnequalSequences(-1.0)
+    }
+	
+	mismatches := 0
+
+    for pos, _ := range Ref{
+	    if Ref[pos] != Alt[pos] {
+		    mismatches++
+	    }
+    }
+	
+	return mismatches, nil
 }
