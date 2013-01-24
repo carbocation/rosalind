@@ -40,11 +40,21 @@ func ReverseComplement(Dna []byte) []byte {
     return revc
 }
 
+//Given a FASTA sequence of the following structure, return a hashmap
+// with the names of the sequences as the keys, and the sequences with 
+// linebreaks removed as the values
+//Example:
+//>RedRobin
+//GATTACAGATTACAGATTACAGATTACAGATTACA
+//GATTACA
+// yields
+//map[RedRobin: GATTACAGATTACAGATTACAGATTACAGATTACAGATTACA]
 func ParseFasta(in string) map[string]string {
     entries := map[string]string{}
 
     var name string
-
+    
+    //We consider that there may be more than one FASTA sequence in this string
     for _, line := range strings.Split(in, "\n") {
         if line[0:1] == ">" {
             name = line[1:]
@@ -56,4 +66,20 @@ func ParseFasta(in string) map[string]string {
     }
 
     return entries
+}
+
+//Calculate the GC fraction [0-1] of a Dna byte array
+func FracGc(Dna string) float64{
+    var bases, gcBases int
+
+    bases = len(Dna)
+    gcBases = 0.0
+
+    for _, base := range Dna{
+        if base == 'G' || base == 'C' {
+            gcBases += 1
+        }
+    }
+
+    return float64(gcBases)/float64(bases)
 }
